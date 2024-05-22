@@ -14,12 +14,20 @@ const OpeningSystemRoute = require('./routes/OpeningSystemRoute')
 const ProfileRoute = require('./routes/ProfileRoute')
 const TypeOfUnitRoute = require('./routes/TypeOfUnitRoute');
 const ApiError = require('./utils/ApiError');
-
-
+const cors = require('cors')
 dotenv.config({ path: 'config.env' })
 
 
 // Middleware
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions))
 
 app.use(express.json())
 if (process.env.NODE_ENV === 'development') {
