@@ -65,16 +65,13 @@ exports.SignupValidator = [
     // .isMobilePhone(["ar-EG", "ar-SA"]), // مصر والسعودية
     check('country')
         .notEmpty()
-        .withMessage('country is required')
-        .isArray(),
+        .withMessage('country is required'),
     check('state')
         .notEmpty()
-        .withMessage('state is required')
-        .isArray(),
+        .withMessage('state is required'),
     check('city')
         .notEmpty()
-        .withMessage('city is required')
-        .isArray(),
+        .withMessage('city is required'),
     check('area')
         .notEmpty()
         .withMessage('area is required'),
