@@ -22,7 +22,7 @@ const Profile = new mongoose.Schema({
     },
 }, { timeStamp: true })
 
-Profile.pre(/^find/, function (next) { // قبل ما تنفذ ال find نفذلي ال populate 
+Profile.pre(/^find/, function (next) {
     this.populate({
         path: 'company',
         select: 'name -_id',

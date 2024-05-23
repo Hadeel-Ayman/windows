@@ -7,7 +7,7 @@ const Material = new mongoose.Schema({
     },
     image: {
         type: String,
-        // required: [true, 'image is required']
+        required: [true, 'image is required']
     },
     from: {
         type: Number,

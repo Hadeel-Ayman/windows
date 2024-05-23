@@ -15,7 +15,20 @@ const Company = new mongoose.Schema({
     },
     size: {
         type: String,
+    },
+    material: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Material'
     }
 }, { timeStamp: true })
+
+Company.pre(/^find/, function (next) {
+    this.populate({ // راجعيها ---------------------------------------
+        path: 'material',
+        select: 'type -_id',
+    })
+    next()
+})
+
 
 module.exports = mongoose.model("Company", Company)

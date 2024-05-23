@@ -16,6 +16,7 @@ const MaterialRoute = require('./routes/MaterialRoute');
 const OpeningSystemRoute = require('./routes/OpeningSystemRoute');
 const ProfileRoute = require('./routes/ProfileRoute');
 const TypeOfUnitRoute = require('./routes/TypeOfUnitRoute');
+const InvoiceRoute = require('./routes/invoiceRoute');
 const bodyParser = require('body-parser');
 
 dotenv.config({ path: 'config.env' });
@@ -37,9 +38,7 @@ app.use(cors(corsOptions));
 // لتتمكن من التعامل مع بيانات JSON
 app.use(express.json());
 
-// لتتمكن من التعامل مع بيانات application/x-www-form-urlencoded
 
-// لتمكين المراجعة في وضع التطوير
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
     console.log(`${process.env.NODE_ENV}`);
@@ -58,6 +57,7 @@ app.use('/api/v1/Material', MaterialRoute);
 app.use('/api/v1/OpeningSystem', OpeningSystemRoute);
 app.use('/api/v1/Profile', ProfileRoute);
 app.use('/api/v1/TypeOfUnit', TypeOfUnitRoute);
+app.use('/api/v1/InvoiceRoute', InvoiceRoute);
 
 // Handle unknown routes
 app.all('*', (req, res, next) => {
