@@ -51,7 +51,7 @@ exports.login = asyncHandler(async (req, res, next) => {
         }
 
         const token = createJWT(user);
-        res.json({ token });
+        res.json("succefully login");
     } catch (err) {
         next(err);
     }

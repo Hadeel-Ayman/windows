@@ -22,11 +22,9 @@ exports.updateOne = (Model) => asyncHandler(async (req, res, next) => {
             return res.status(400).json({ errors: [{ msg: 'image is required', path: 'image', location: 'body' }] });
         }
 
-        // رفع الملف الجديد إلى Firebase Storage
         const storageRef = ref(storage, `uploads/${file.originalname}`);
         await uploadBytes(storageRef, file.buffer);
 
-        // تحديث رابط الصورة في بيانات الوثيقة في MongoDB
         const updateDoc = await Model.findByIdAndUpdate(
             req.params.id,
             { image: `uploads/${file.originalname}` },
