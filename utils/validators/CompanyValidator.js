@@ -26,9 +26,6 @@ exports.createCompanyValidator = [
     check('size')
         .isString()
         .withMessage('Size must be a string'),
-    check('image')
-        .notEmpty()
-        .withMessage('image is required'),
     result
 ]
 

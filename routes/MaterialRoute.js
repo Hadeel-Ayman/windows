@@ -7,14 +7,14 @@ const { auth, isAdminAuth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/firebase');
 
 router.route('/')
-    .post(upload.single('image'), createMaterialValidator, isAdminAuth, PostMaterial)
+    .post(isAdminAuth, upload.single('image'), createMaterialValidator, PostMaterial)
     .get(auth, GetAllMaterials)
 
 // router.use('/:materialId/profilies', ProfileRoute) // ارجعلو 
 
 router.route('/:id')
     .get(getMaterialValidator, auth, getOneMaterial)
-    .put(upload.single('image'), updateMaterialValidator, isAdminAuth, UpdateMaterial)
+    .put(isAdminAuth, upload.single('image'), updateMaterialValidator, UpdateMaterial)
     .delete(deleteMaterialValidator, isAdminAuth, DeleteMaterial)
 
 module.exports = router

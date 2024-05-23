@@ -15,7 +15,7 @@ const Company = new mongoose.Schema({
     },
     size: {
         type: String,
-    },
+    }
 }, { timeStamp: true })
 
 module.exports = mongoose.model("Company", Company)

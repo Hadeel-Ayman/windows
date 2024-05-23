@@ -18,9 +18,6 @@ exports.createMaterialValidator = [
             }
             return true;
         }),
-    check('image')
-        .notEmpty()
-        .withMessage('image is required'),
     check('from')
         .isNumeric()
         .notEmpty()
