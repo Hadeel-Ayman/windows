@@ -37,17 +37,17 @@ const UserSchema = new mongoose.Schema({
         trim: true,
     },
     country: {
-        type: Array,
+        type: String,
         required: [true, 'country is required'],
         trim: true,
     },
     state: {
-        type: Array,
+        type: String,
         required: [true, 'state is required'],
         trim: true,
     },
     city: {
-        type: Array,
+        type: String,
         required: [true, 'city is required'],
         trim: true,
     },
