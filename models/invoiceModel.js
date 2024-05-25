@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const Invoice = new mongoose.Schema({
-    items: Array
+    items: [
+        {
+            type: Object,
+        }
+    ]
 },
     { timeStamp: true }
 );

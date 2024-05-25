@@ -1,4 +1,3 @@
-const PDFDocument = require('pdfkit');
 const Invoice = require('../models/invoiceModel');
 
 exports.createInvoice = async (req, res) => {
@@ -8,7 +7,7 @@ exports.createInvoice = async (req, res) => {
         const invoice = new Invoice({ items: items });
         await invoice.save();
 
-        res.status(201).json(invoice);
+        res.status(201).json('invoice was successfully');
     } catch (err) {
         res.status(400).json({ message: err.message });
     }

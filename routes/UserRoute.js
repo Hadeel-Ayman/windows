@@ -8,7 +8,6 @@ router.route('/')
     .post(createUserValidator, isAdminAuth, PostUser)
     .get(GetUsers)
 
-// router.put('/changePassword/:id', UpdatePassword)
 
 router.route('/:id')
     .get(getUserValidator, isAdminAuth, getOneUser)

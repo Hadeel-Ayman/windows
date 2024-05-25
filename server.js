@@ -5,19 +5,10 @@ const cors = require('cors');
 const dbConnection = require('./config/dbConnection');
 const globalError = require('./middlewares/errorMiddleware');
 const ApiError = require('./utils/ApiError');
+const bodyParser = require('body-parser');
 
 // Import routes
-const UserRoute = require('./routes/UserRoute');
-const AuthRoute = require('./routes/AuthRoute');
-const FrameRoute = require('./routes/FrameRoute');
-const SashRoute = require('./routes/SashRoute');
-const CompanyRoute = require('./routes/CompanyRoute');
-const MaterialRoute = require('./routes/MaterialRoute');
-const OpeningSystemRoute = require('./routes/OpeningSystemRoute');
-const ProfileRoute = require('./routes/ProfileRoute');
-const TypeOfUnitRoute = require('./routes/TypeOfUnitRoute');
-const InvoiceRoute = require('./routes/invoiceRoute');
-const bodyParser = require('body-parser');
+const AllRoutes = require('./routes');
 
 dotenv.config({ path: 'config.env' });
 
@@ -48,16 +39,7 @@ if (process.env.NODE_ENV === 'development') {
 dbConnection();
 
 // Routes
-app.use('/api/v1/User', UserRoute);
-app.use('/api/v1/Auth', AuthRoute);
-app.use('/api/v1/Frame', FrameRoute);
-app.use('/api/v1/Sash', SashRoute);
-app.use('/api/v1/Company', CompanyRoute);
-app.use('/api/v1/Material', MaterialRoute);
-app.use('/api/v1/OpeningSystem', OpeningSystemRoute);
-app.use('/api/v1/Profile', ProfileRoute);
-app.use('/api/v1/TypeOfUnit', TypeOfUnitRoute);
-app.use('/api/v1/InvoiceRoute', InvoiceRoute);
+AllRoutes(app);
 
 // Handle unknown routes
 app.all('*', (req, res, next) => {

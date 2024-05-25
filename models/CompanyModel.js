@@ -19,6 +19,10 @@ const Company = new mongoose.Schema({
     material: {
         type: mongoose.Schema.ObjectId,
         ref: 'Material'
+    },
+    profile: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Profile'
     }
 }, { timeStamp: true })
 

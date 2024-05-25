@@ -8,6 +8,10 @@ const CuttingProcess = new mongoose.Schema({
     Welding_time: {
         type: Number,
         default: '2m', // 2دقيقة 
+    },
+    profile: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Profile'
     }
 },
     { timeStamp: true }
