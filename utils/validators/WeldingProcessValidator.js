@@ -13,8 +13,11 @@ exports.createWeldingProcessValidator = [
         .withMessage('Welding_Allowance must be a number'),
     check('Welding_time')
         .isNumeric()
-        .withMessage('Welding_time must be a number').
-        result
+        .withMessage('Welding_time must be a number'),
+    check('profile')
+        .isMongoId()
+        .withMessage('Invalid WeldingProcess Id'),
+    result
 ]
 
 exports.updateWeldingProcessValidator = [

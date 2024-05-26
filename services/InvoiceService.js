@@ -4,10 +4,10 @@ exports.createInvoice = async (req, res) => {
     try {
         const { items } = req.body;
 
-        const invoice = new Invoice({ items: items });
+        const invoice = new Invoice({ items });
         await invoice.save();
 
-        res.status(201).json('invoice was successfully');
+        res.status(201).json('The invoice has been stored successfully');
     } catch (err) {
         res.status(400).json({ message: err.message });
     }

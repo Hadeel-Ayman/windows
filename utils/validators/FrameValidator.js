@@ -72,9 +72,7 @@ exports.createFrameValidator = [
         .isNumeric()
         .withMessage('price must be a number'),
     check('pricePerbeam'),
-    check('image')
-        .notEmpty()
-        .withMessage('image is required'),
+    check('image'),
     check('from')
         .isNumeric()
         .notEmpty()

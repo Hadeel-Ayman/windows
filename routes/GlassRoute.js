@@ -1,15 +1,16 @@
 const express = require('express');
 const { PostGlass, GetAllGlass, getOneGlass, UpdateGlass, DeleteGlass } = require('../services/GlassService');
-const { getCompanyValidator, updateUserValidator, deleteUserValidator, createUserValidator } = require('../utils/validators/UserValidator');
+const { createGlassValidator, getGlassValidator, updateGlassValidator, deleteGlassValidator } = require('../utils/validators/GlassValidator');
+const { auth } = require('../middlewares/auth');
 const router = express.Router()
 
 router.route('/')
-    .post(createUserValidator, PostGlass)
-    .get(GetAllGlass)
+    .post(createGlassValidator, auth, PostGlass)
+    .get(auth, GetAllGlass)
 
 router.route('/:id')
-    .get(getUserValidator, getOneGlass)
-    .put(updateUserValidator, UpdateGlass)
-    .delete(deleteUserValidator, DeleteGlass)
+    .get(getGlassValidator, auth, getOneGlass)
+    .put(updateGlassValidator, auth, UpdateGlass)
+    .delete(deleteGlassValidator, auth, DeleteGlass)
 
 module.exports = router

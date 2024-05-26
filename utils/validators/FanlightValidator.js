@@ -8,16 +8,10 @@ exports.getFanlightValidator = [
 ]
 
 exports.createFanlightValidator = [
-    check('image')
-        .notEmpty()
-        .withMessage('image is required'),
+    check('image'),
     check('title')
         .notEmpty()
-        .withMessage('title is required')
-        .custom((val, { req }) => {
-            req.body.slug = slugify(val)
-            return true
-        }),
+        .withMessage('title is required'),
     check('numOfSegment')
         .isNumeric()
         .withMessage('numOfSegment is required')
@@ -28,10 +22,15 @@ exports.createFanlightValidator = [
         .withMessage('Invalid openingSystem Id')
         .notEmpty()
         .withMessage('openingSystem is required'),
+    check('profile')
+        .isMongoId()
+        .withMessage('Invalid profile Id')
+        .notEmpty()
+        .withMessage('profile is required'),
     result
 ]
 
-exports.updateSashValidator = [
+exports.updateFanlightValidator = [
     check('id').isMongoId().withMessage('Invalid Fanlight Id'),
     result
 ]

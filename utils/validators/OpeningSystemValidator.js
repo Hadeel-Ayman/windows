@@ -12,14 +12,10 @@ exports.createOpeningSystemValidator = [
         .isArray()
         .notEmpty()
         .withMessage('type is required'),
-    check('image')
-        .notEmpty()
-        .withMessage('image is required'),
     check('from')
         .isNumeric()
         .notEmpty()
         .withMessage('from is required'),
-
     result
 ]
 

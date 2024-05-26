@@ -25,13 +25,13 @@ const Profile = new mongoose.Schema({
 Profile.pre(/^find/, function (next) {
     this.populate({
         path: 'company',
-        select: 'name -_id',
+        select: '-_id -__v',
     }).populate({
         path: 'system',
-        select: 'type -_id'
+        select: '-_id -__v'
     }).populate({
         path: 'material',
-        select: 'type -_id'
+        select: '-_id -__v'
     });
     next()
 })

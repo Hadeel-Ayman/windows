@@ -27,9 +27,11 @@ const Reinforcementsteel = new mongoose.Schema({
     },
     price_beam: {
         type: Number, // حساب 
-        required: [true, 'price_beam is required']
     },
-
+    profile: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Profile'
+    }
     // Reinforcement checkbox type belongs to the frame and sash and mullion and other 
 
 }, { timeStamp: true })
@@ -38,6 +40,9 @@ Reinforcementsteel.pre(/^find/, function (next) {
     this.populate({ // راجعيها ---------------------------------------
         path: 'Length_of_Beam',
         select: 'Length_of_Beam -_id',
+    }).populate({
+        path: 'profile',
+        select: 'brandname -_id',
     })
     next()
 })

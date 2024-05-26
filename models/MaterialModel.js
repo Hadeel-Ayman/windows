@@ -13,12 +13,7 @@ const Material = new mongoose.Schema({
         type: Number,
         required: [true, 'from is required']
     },
-    profile: [{
-        type: mongoose.Schema.ObjectId
-    }],
-    system: [{
-        type: mongoose.Schema.ObjectId
-    }]
 }, { timeStamp: true })
+
 
 module.exports = mongoose.model("Material", Material)

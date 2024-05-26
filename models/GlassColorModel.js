@@ -9,14 +9,22 @@ const GlassColor = new mongoose.Schema({
         type: String,
         required: [true, 'title is required']
     },
-    slug: {
-        type: String,
-        lowercase: true
-    },
     plus: {
         type: Number,
         required: [true, 'plus is required']
+    },
+    profile: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Profile'
     }
 }, { timeStamp: true })
 
+
+GlassColor.pre(/^find/, function (next) {
+    this.populate({
+        path: 'profile',
+        select: 'brandname -_id',
+    })
+    next()
+})
 module.exports = mongoose.model("GlassColor", GlassColor)

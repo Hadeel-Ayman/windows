@@ -9,10 +9,18 @@ const ProfileColor = new mongoose.Schema({
         type: String,
         required: [true, 'title is required']
     },
-    slug: {
-        type: String,
-        lowercase: true
-    },
+    profile: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Profile'
+    }
 }, { timeStamp: true })
+
+ProfileColor.pre(/^find/, function (next) {
+    this.populate({
+        path: 'profile',
+        select: 'brandname -_id',
+    })
+    next()
+})
 
 module.exports = mongoose.model("ProfileColor", ProfileColor)

@@ -29,7 +29,10 @@ const Company = new mongoose.Schema({
 Company.pre(/^find/, function (next) {
     this.populate({ // راجعيها ---------------------------------------
         path: 'material',
-        select: 'type -_id',
+        select: '-_id',
+    }).populate({
+        path: 'profile',
+        select: '-_id',
     })
     next()
 })

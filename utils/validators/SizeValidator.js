@@ -2,12 +2,12 @@ const { check } = require('express-validator')
 const result = require('../../middlewares/validatorMeddliware')
 
 
-exports.getCuttingProcessValidator = [
-    check('id').isMongoId().withMessage('Invalid CuttingProcess Id'),
+exports.getSizeValidator = [
+    check('id').isMongoId().withMessage('Invalid size Id'),
     result // for catch error from the above id 
 ]
 
-exports.createCuttingProcessValidator = [
+exports.createSizeValidator = [
     check('width')
         .isNumeric()
         .withMessage('width must be a number')
@@ -19,12 +19,12 @@ exports.createCuttingProcessValidator = [
 ]
 
 
-exports.updateCuttingProcessValidator = [
-    check('id').isMongoId().withMessage('Invalid CuttingProcess id format'),
+exports.updateSizeValidator = [
+    check('id').isMongoId().withMessage('Invalid size id format'),
     result
 ];
 
-exports.deleteCuttingProcessValidator = [
-    check('id').isMongoId().withMessage('Invalid CuttingProcess id format'),
+exports.deleteSizeValidator = [
+    check('id').isMongoId().withMessage('Invalid size id format'),
     result,
 ];

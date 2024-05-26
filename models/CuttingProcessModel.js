@@ -17,4 +17,12 @@ const CuttingProcess = new mongoose.Schema({
     { timeStamp: true }
 );
 
+CuttingProcess.pre(/^find/, function (next) {
+    this.populate({ // راجعيها ---------------------------------------
+        path: 'profile',
+        select: 'brandname -_id',
+    })
+    next()
+})
+
 module.exports = mongoose.model("CuttingProcess", CuttingProcess);

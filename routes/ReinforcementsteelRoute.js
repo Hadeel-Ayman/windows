@@ -1,15 +1,16 @@
 const express = require('express');
 const { PostReinforcementsteel, GetAllReinforcementsteel, getOneReinforcementsteel, UpdateReinforcementsteel, DeleteReinforcementsteel } = require('../services/ReinforcementsteelService');
-const { getCompanyValidator, updateUserValidator, deleteUserValidator, createUserValidator } = require('../utils/validators/UserValidator');
+const { createReinforcementsteelValidator, getReinforcementsteelValidator, updateReinforcementsteelValidator, deleteReinforcementsteelValidator } = require('../utils/validators/ReinforcmentsteelValidator');
+const { isAdminAuth, auth } = require('../middlewares/auth');
 const router = express.Router()
 
 router.route('/')
-    .post(createUserValidator, PostReinforcementsteel)
-    .get(GetAllReinforcementsteel)
+    .post(createReinforcementsteelValidator, isAdminAuth, PostReinforcementsteel)
+    .get(auth, GetAllReinforcementsteel)
 
 router.route('/:id')
-    .get(getUserValidator, getOneReinforcementsteel)
-    .put(updateUserValidator, UpdateReinforcementsteel)
-    .delete(deleteUserValidator, DeleteReinforcementsteel)
+    .get(getReinforcementsteelValidator, auth, getOneReinforcementsteel)
+    .put(updateReinforcementsteelValidator, isAdminAuth, UpdateReinforcementsteel)
+    .delete(deleteReinforcementsteelValidator, isAdminAuth, DeleteReinforcementsteel)
 
 module.exports = router

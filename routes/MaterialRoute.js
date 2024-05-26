@@ -10,8 +10,6 @@ router.route('/')
     .post(isAdminAuth, upload.single('image'), createMaterialValidator, PostMaterial)
     .get(auth, GetAllMaterials)
 
-// router.use('/:materialId/profilies', ProfileRoute) // ارجعلو 
-
 router.route('/:id')
     .get(getMaterialValidator, auth, getOneMaterial)
     .put(isAdminAuth, upload.single('image'), updateMaterialValidator, UpdateMaterial)

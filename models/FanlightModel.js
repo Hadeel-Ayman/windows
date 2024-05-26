@@ -9,10 +9,6 @@ const Fanlight = new mongoose.Schema({
         type: String,
         required: [true, 'title is required']
     },
-    slug: {
-        type: String,
-        lowercase: true
-    },
     numOfSegment: {
         type: Number,
         required: [true, 'numOfSegment is required']
@@ -20,13 +16,21 @@ const Fanlight = new mongoose.Schema({
     openingSystem: {
         type: mongoose.Schema.ObjectId,
         ref: 'OpeningSystem',
+    },
+    profile: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Profile'
     }
 }, { timeStamp: true })
 
-Fanlight.pre(/^find/, function (next) { 
+
+Fanlight.pre(/^find/, function (next) {
     this.populate({
         path: 'openingSystem',
-        select: 'type -_id',
+        select: '-_id',
+    }).populate({
+        path: 'profile',
+        select: '-_id',
     })
     next()
 })

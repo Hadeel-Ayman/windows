@@ -6,12 +6,12 @@ const { isAdminAuth, auth } = require('../middlewares/auth');
 const { upload } = require('../middlewares/firebase');
 
 router.route('/')
-    .post(createFrameValidator, isAdminAuth, upload.single('image'), PostFrame)
+    .post(isAdminAuth, upload.single('image'), createFrameValidator, PostFrame)
     .get(auth, GetAllFrames)
 
 router.route('/:id')
-    .get(getFrameValidator, auth, upload.single('image'), getOneFrame)
-    .put(updateFrameValidator, isAdminAuth, upload.single('image'), UpdateFrame)
+    .get(auth, getFrameValidator, getOneFrame)
+    .put(isAdminAuth, upload.single('image'), updateFrameValidator, UpdateFrame)
     .delete(deleteFrameValidator, isAdminAuth, DeleteFrame)
 
 module.exports = router

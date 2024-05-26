@@ -1,15 +1,15 @@
 const express = require('express');
 const { PostWeldingProcess, GetAllWeldingProcess, getOneWeldingProcess, UpdateWeldingProcess, DeleteWeldingProcess } = require('../services/WeldingProcessService');
-const { getCompanyValidator, updateUserValidator, deleteUserValidator, createUserValidator } = require('../utils/validators/UserValidator');
+const { getWeldingProcessValidator, createWeldingProcessValidator, deleteWeldingProcessValidator, updateWeldingProcessValidator } = require('../utils/validators/WeldingProcessValidator');
 const router = express.Router()
 
 router.route('/')
-    .post(createUserValidator, PostWeldingProcess)
+    .post(createWeldingProcessValidator, PostWeldingProcess)
     .get(GetAllWeldingProcess)
 
 router.route('/:id')
-    .get(getUserValidator, getOneWeldingProcess)
-    .put(updateUserValidator, UpdateWeldingProcess)
-    .delete(deleteUserValidator, DeleteWeldingProcess)
+    .get(getWeldingProcessValidator, getOneWeldingProcess)
+    .put(updateWeldingProcessValidator, UpdateWeldingProcess)
+    .delete(deleteWeldingProcessValidator, DeleteWeldingProcess)
 
 module.exports = router

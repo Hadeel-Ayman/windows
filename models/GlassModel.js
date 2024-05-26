@@ -28,7 +28,11 @@ const Glass = new mongoose.Schema({
     weightPermeterSqure: {
         type: String,
         required: [true, 'weight is required']
-    }
+    },
+    // profile: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'Profile'
+    // }
 }, { timeStamp: true })
 
 module.exports = mongoose.model("Glass", Glass)

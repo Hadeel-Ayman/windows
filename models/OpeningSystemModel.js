@@ -12,7 +12,7 @@ const OpeningSystem = new mongoose.Schema({
     from: {
         type: Number,
         required: [true, 'from is required']
-    }
+    },
 }, { timeStamp: true })
 
 module.exports = mongoose.model("OpeningSystem", OpeningSystem)

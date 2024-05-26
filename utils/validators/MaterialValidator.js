@@ -25,8 +25,6 @@ exports.createMaterialValidator = [
     result
 ]
 
-
-
 exports.updateMaterialValidator = [
     check('id').isMongoId().withMessage('Invalid Material id format'),
     result

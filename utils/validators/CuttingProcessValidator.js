@@ -1,30 +1,32 @@
 const { check } = require('express-validator')
 const result = require('../../middlewares/validatorMeddliware')
 
-
 exports.getCuttingProcessValidator = [
-    check('id').isMongoId().withMessage('Invalid CuttingProcess Id'),
-    result // for catch error from the above id 
+    check('id').isMongoId().withMessage('Invalid User Id'),
+    result
 ]
 
 exports.createCuttingProcessValidator = [
     check('thickenss')
+        .default('6')
         .isNumeric()
-        .withMessage('thickenss must be a number')
-        .default(6),
+        .withMessage('thickenss must be a number'),
     check('Welding_time')
+        .default('2m')
         .isNumeric()
-        .withMessage('Welding_time must be a number'),
+        .withMessage('thickenss must be a number'),
+    check('profile')
+        .isMongoId()
+        .withMessage('Invalid User Id'),
     result
 ]
 
-
 exports.updateCuttingProcessValidator = [
-    check('id').isMongoId().withMessage('Invalid CuttingProcess id format'),
+    check('id').isMongoId().withMessage('Invalid User Id'),
     result
-];
+]
 
 exports.deleteCuttingProcessValidator = [
-    check('id').isMongoId().withMessage('Invalid CuttingProcess id format'),
-    result,
-];
+    check('id').isMongoId().withMessage('Invalid User Id'),
+    result
+]

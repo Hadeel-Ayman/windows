@@ -36,12 +36,12 @@ exports.createGlassValidator = [
     check('specification')
         .notEmpty()
         .withMessage('specification is required'),
-    check('price')
+    check('pricePermeterSqure')
         .notEmpty()
         .withMessage('price is required')
         .isNumeric()
         .withMessage('price must be a number'),
-    check('weight')
+    check('weightPermeterSqure')
         .notEmpty()
         .withMessage('weight is required'),
     result

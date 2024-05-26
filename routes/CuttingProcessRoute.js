@@ -1,15 +1,16 @@
 const express = require('express');
 const { PostCuttingProcess, GetAllCuttingProcess, getOneCuttingProcess, UpdateCuttingProcess, DeleteCuttingProcess } = require('../services/CuttingProcessService');
-const { getCompanyValidator, updateUserValidator, deleteUserValidator, createUserValidator } = require('../utils/validators/UserValidator');
+const { createCuttingProcessValidator, getCuttingProcessValidator, deleteCuttingProcessValidator, updateCuttingProcessValidator } = require('../utils/validators/CuttingProcessValidator');
+const { isAdminAuth, auth } = require('../middlewares/auth');
 const router = express.Router()
 
 router.route('/')
-    .post(createUserValidator, PostCuttingProcess)
-    .get(GetAllCuttingProcess)
+    .post(createCuttingProcessValidator, isAdminAuth, PostCuttingProcess)
+    .get(auth, GetAllCuttingProcess)
 
 router.route('/:id')
-    .get(getUserValidator, getOneCuttingProcess)
-    .put(updateUserValidator, UpdateCuttingProcess)
-    .delete(deleteUserValidator, DeleteCuttingProcess)
+    .get(getCuttingProcessValidator, auth, getOneCuttingProcess)
+    .put(updateCuttingProcessValidator, isAdminAuth, UpdateCuttingProcess)
+    .delete(deleteCuttingProcessValidator, isAdminAuth, DeleteCuttingProcess)
 
 module.exports = router

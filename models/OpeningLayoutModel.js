@@ -9,13 +9,13 @@ const OpeningLayout = new mongoose.Schema({
         type: String,
         required: [true, 'title is required']
     },
-    slug: {
-        type: String,
-        lowercase: true
-    },
     openingSystem: {
         type: mongoose.Schema.ObjectId,
         ref: 'OpeningSystem'
+    },
+    profile: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Profile'
     }
 }, { timeStamp: true })
 
@@ -23,7 +23,11 @@ OpeningLayout.pre(/^find/, function (next) {
     this.populate({ // راجعيها ---------------------------------------
         path: 'openingSystem',
         select: 'type -_id',
+    }).populate({
+        path: 'profile',
+        select: 'brandname -_id',
     })
     next()
 })
+
 module.exports = mongoose.model("OpeningLayout", OpeningLayout)

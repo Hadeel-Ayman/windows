@@ -30,7 +30,7 @@ exports.createCompanyValidator = [
 ]
 
 exports.updateCompanyValidator = [
-    check('id').isMongoId().withMessage('Invalid Sash Id'),
+    check('id').isMongoId().withMessage('Invalid Company Id'),
     body('name').custom((val, { req }) => {
         req.body.slug = slugify(val)
         return true

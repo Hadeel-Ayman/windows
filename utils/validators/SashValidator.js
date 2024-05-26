@@ -1,6 +1,7 @@
 const { check, body } = require('express-validator')
 const result = require('../../middlewares/validatorMeddliware')
 const slugify = require("slugify");
+const Frame = require('../../models/FrameModel');
 
 exports.getSashValidator = [
     check('id').isMongoId().withMessage('Invalid Sash Id'),
@@ -19,9 +20,7 @@ exports.createSashValidator = [
             req.body.slug = slugify(val)
             return true
         }),
-    check('image')
-        .notEmpty()
-        .withMessage('image is required'),
+    check('image'),
     check('from')
         .isNumeric()
         .notEmpty()
@@ -34,17 +33,26 @@ exports.createSashValidator = [
         .withMessage('Length_of_Beam is required')
         .isMongoId()
         .withMessage('Invalid ID format')
-        .custom((value, { req }) => {
-            const Length_of_Beam = parseFloat(value);
+        .custom(async (value, { req }) => {
+            if (!mongoose.Types.ObjectId.isValid(value)) {
+                throw new Error('Invalid Length_of_Beam ID');
+            }
+
+            const beam = await Frame.findById(value);
+            if (!beam) {
+                throw new Error('Beam not found');
+            }
+
+            const Length_of_Beam = parseFloat(beam.Length_of_Beam);
             const pricePermeter = parseFloat(req.body.pricePermeter);
+
             if (!isNaN(Length_of_Beam) && !isNaN(pricePermeter)) {
                 req.body.price_beam = Length_of_Beam * pricePermeter;
             } else {
                 throw new Error('Both Length_of_Beam and pricePermeter must be numbers');
             }
             return true;
-        })
-    ,
+        }),
     check('height')
         .notEmpty()
         .withMessage('height is required')
@@ -66,6 +74,12 @@ exports.createSashValidator = [
         .isNumeric()
         .withMessage('price must be a number'),
     check('price_beam'),
+    check('profile')
+        .isMongoId()
+        .withMessage('Invalid profile Id'),
+    check('typeofunit')
+        .isMongoId()
+        .withMessage('Invalid typeofunit Id'),
     result
 ]
 

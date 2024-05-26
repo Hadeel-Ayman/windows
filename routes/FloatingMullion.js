@@ -1,15 +1,17 @@
 const express = require('express');
 const { PostFloatingMullion, GetAllFloatingMullion, getOneFloatingMullion, UpdateFloatingMullion, DeleteFloatingMullion } = require('../services/FloatingMullionService');
-const { getCompanyValidator, updateUserValidator, deleteUserValidator, createUserValidator } = require('../utils/validators/UserValidator');
+const { createFloatingMullionValidator, getFloatingMullionValidator, updateFloatingMullionValidator, deleteFloatingMullionValidator } = require('../utils/validators/FloatingMullionValidator');
 const router = express.Router()
+const { isAdminAuth, auth } = require('../middlewares/auth');
+
 
 router.route('/')
-    .post(createUserValidator, PostFloatingMullion)
-    .get(GetAllFloatingMullion)
+    .post(createFloatingMullionValidator, isAdminAuth, PostFloatingMullion)
+    .get(auth, GetAllFloatingMullion)
 
 router.route('/:id')
-    .get(getUserValidator, getOneFloatingMullion)
-    .put(updateUserValidator, UpdateFloatingMullion)
-    .delete(deleteUserValidator, DeleteFloatingMullion)
+    .get(getFloatingMullionValidator, auth, getOneFloatingMullion)
+    .put(updateFloatingMullionValidator, isAdminAuth, UpdateFloatingMullion)
+    .delete(deleteFloatingMullionValidator, isAdminAuth, DeleteFloatingMullion)
 
 module.exports = router

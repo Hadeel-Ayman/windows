@@ -27,7 +27,6 @@ const FloatingMullion = new mongoose.Schema({
     },
     price_beam: {
         type: Number, // حساب 
-        required: [true, 'price_beam is required']
     },
     profile: {
         type: mongoose.Schema.ObjectId,
