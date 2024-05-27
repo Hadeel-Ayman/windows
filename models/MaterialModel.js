@@ -15,5 +15,4 @@ const Material = new mongoose.Schema({
     },
 }, { timeStamp: true })
 
-
 module.exports = mongoose.model("Material", Material)

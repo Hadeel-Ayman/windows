@@ -13,17 +13,17 @@ const GlassColor = new mongoose.Schema({
         type: Number,
         required: [true, 'plus is required']
     },
-    profile: {
+    glass: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Profile'
+        ref: 'Glass'
     }
 }, { timeStamp: true })
 
 
 GlassColor.pre(/^find/, function (next) {
     this.populate({
-        path: 'profile',
-        select: 'brandname -_id',
+        path: 'glass',
+        select: '-_id',
     })
     next()
 })
