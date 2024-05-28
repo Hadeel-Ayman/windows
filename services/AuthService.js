@@ -63,17 +63,17 @@ exports.login = asyncHandler(async (req, res, next) => {
 exports.loginAdmin = asyncHandler(async (req, res, next) => {
     const { email, password, role } = req.body;
     if (!email || !password || !role) {
-        return next(new ErrorHandler("Please Fill Full Form!", 400));
+        return next(new ApiError("Please Fill Full Form!", 400));
     }
     const user = await User.findOne({ email });
     if (!user) {
-        return next(new ErrorHandler("Invalid email Or Password!1", 400));
+        return next(new ApiError("Invalid email Or Password!1", 400));
     }
     if (password !== user.password) {
-        return next(new ErrorHandler("Invalid email Or Password!2", 400));
+        return next(new ApiError("Invalid email Or Password!2", 400));
     }
     if (role !== user.role) {
-        return next(new ErrorHandler(`User Not Found With This Role!`, 400));
+        return next(new ApiError(`User Not Found With This Role!`, 400));
     }
-    createJWT(user, "Login Successfully!", 201, res);
+    res.json("Login Successfully!");
 });
