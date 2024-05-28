@@ -6,7 +6,7 @@ const ApiError = require('../utils/ApiError');
 
 // انشاء توكن   
 
-const createJWT = (user) => {
+const createJWT = (user, message, statusCode, res) => {
     const token = jwt.sign({ id: user._id }, process.env.SKERET_KEY, {
         expiresIn: process.env.EXPIR_JWT_TIME,
     });
