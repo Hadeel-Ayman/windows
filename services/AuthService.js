@@ -75,7 +75,7 @@ exports.loginAdmin = asyncHandler(async (req, res, next) => {
     if (role !== user.role) {
         return next(new ApiError(`User Not Found With This Role!`, 400));
     }
-    createJWT(user, "Login Successfully!", 201, res);
+    // createJWT(user, "Login Successfully!", 201, res);
 
-    // res.json("Login Successfully!");
+    res.json("Login Successfully!");
 });
