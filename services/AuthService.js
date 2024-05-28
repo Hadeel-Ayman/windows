@@ -65,7 +65,7 @@ exports.loginAdmin = asyncHandler(async (req, res, next) => {
     if (!email || !password || !role) {
         return next(new ErrorHandler("Please Fill Full Form!", 400));
     }
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email });
     if (!user) {
         return next(new ErrorHandler("Invalid email Or Password!1", 400));
     }
