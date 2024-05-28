@@ -81,3 +81,20 @@ exports.SignupValidator = [
     result
 ]
 
+exports.loginAdminValidator = [
+    check('email')
+        .notEmpty()
+        .withMessage('email is required')
+        .isEmail()
+        .withMessage('invalid email address'),
+
+    check('password')
+        .notEmpty()
+        .withMessage('password is required')
+        .isLength({ min: 2 })
+        .withMessage('password Too short'),
+
+    check('role')
+        .default('user'),
+    result
+]

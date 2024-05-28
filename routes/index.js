@@ -45,7 +45,6 @@ const AllRoutes = (app) => {
     app.use('/api/v1/Glass', GlassRoute);
     app.use('/api/v1/Fanlight', FanlightRoute);
     app.use('/api/v1/GlassColor', GlassColorRoute);
-
 }
 
 module.exports = AllRoutes;

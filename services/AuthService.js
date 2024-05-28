@@ -49,10 +49,31 @@ exports.login = asyncHandler(async (req, res, next) => {
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return next(new ApiError('Invalid email or password', 401));
         }
-
-        const token = createJWT(user);
         res.json("succefully login");
     } catch (err) {
         next(err);
     }
+});
+
+
+// @desc   login admin
+// @route  Post api/v1/Auth
+// @access Public
+
+exports.loginAdmin = asyncHandler(async (req, res, next) => {
+    const { email, password, role } = req.body;
+    if (!email || !password || !role) {
+        return next(new ErrorHandler("Please Fill Full Form!", 400));
+    }
+    const user = await User.findOne({ email }).select("+password");
+    if (!user) {
+        return next(new ErrorHandler("Invalid email Or Password!1", 400));
+    }
+    if (password !== user.password) {
+        return next(new ErrorHandler("Invalid email Or Password!2", 400));
+    }
+    if (role !== user.role) {
+        return next(new ErrorHandler(`User Not Found With This Role!`, 400));
+    }
+    createJWT(user, "Login Successfully!", 201, res);
 });
