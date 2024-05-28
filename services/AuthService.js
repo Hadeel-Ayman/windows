@@ -7,9 +7,20 @@ const ApiError = require('../utils/ApiError');
 // انشاء توكن   
 
 const createJWT = (user) => {
-    return jwt.sign({ id: user._id }, process.env.SKERET_KEY, {
-        expiresIn: process.env.EXPIR_JWT_TIME
+    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+        expiresIn: process.env.EXPIR_JWT_TIME,
     });
+    const tokenName = user.role === 'Admin' ? 'adminToken' : 'superAdminToken';
+    res
+        .status(statusCode)
+        .header('Authorization', `Bearer ${token}`)
+        .json({
+            success: true,
+            message,
+            user,
+            token,
+            tokenName,
+        });
 };
 
 // @desc   create new user
