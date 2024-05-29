@@ -1,6 +1,6 @@
 const express = require('express');
 const { SignupValidator, loginValidator, loginAdminValidator } = require('../utils/validators/AuthValidator');
-const { Regestier, login, loginAdmin } = require('../services/AuthService');
+const { Regestier, login, loginAdmin,logout } = require('../services/AuthService');
 const router = express.Router()
 
 router.route('/signup').post(SignupValidator, Regestier)

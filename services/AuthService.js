@@ -92,20 +92,19 @@ exports.loginAdmin = asyncHandler(async (req, res, next) => {
 
 
 
-exports.logout = catchAsyncErrors(async (req, res, next) => {
+exports.logout = asyncHandler(async (req, res, next) => {
     // قراءة التوكن من الـ headers
     const token = req.headers.authorization?.split(" ")[1];
 
     if (!token) {
-        return next(new ErrorHandler("No valid token found!", 400));
+        return next(new ApiError("No valid token found!", 400));
     }
 
     // التحقق من نوع التوكن
-    let decoded;
     try {
         decoded = jwt.verify(token, process.env.SECRET_KEY);
     } catch (error) {
-        return next(new ErrorHandler("Invalid or expired token!", 401));
+        return next(new ApiError("Invalid or expired token!", 401));
     }
     res.status(200).json({
         success: true,
