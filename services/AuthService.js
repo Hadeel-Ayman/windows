@@ -18,7 +18,6 @@ const createJWT = (user, message, statusCode, res) => {
             message,
             user,
             token,
-            tokenName,
         });
 };
 
