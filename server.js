@@ -18,7 +18,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const corsOptions = {
-    origin: '*',
+    origin: 'http://localhost:3000',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // السماح بإرسال بيانات الاعتماد
     allowedHeaders: ['Content-Type', 'Authorization'],
