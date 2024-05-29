@@ -11,7 +11,7 @@ router.route('/')
 // get Admin Details    
 router.route('/getAdminDetails').get(isSuperAdminAuthenticated, getAdminDetails)
 router.route('/getAllAdmins').get(isSuperAdminAuthenticated, getAllAdmins)
-router.route('/addNewAdmin').get(isSuperAdminAuthenticated, addNewAdmin)
+router.route('/addNewAdmin').post(isSuperAdminAuthenticated, addNewAdmin)
 
 router.route('/:id')
     .get(getUserValidator, isSuperAdminAuthenticated, getOneUser)
