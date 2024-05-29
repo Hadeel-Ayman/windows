@@ -21,7 +21,7 @@ const corsOptions = {
     origin: 'http://localhost:3000',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // السماح بإرسال بيانات الاعتماد
-    allowedHeaders: ['Content-Type', 'authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     optionsSuccessStatus: 204
 };
 
