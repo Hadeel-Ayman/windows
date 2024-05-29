@@ -57,35 +57,39 @@ exports.DeleteUser = Factory.deleteOne(User)
 
 
 exports.addNewAdmin = asyncHandler(async (req, res, next) => {
-    const { Name, email, phone, password, age, userId, role } =
+    const { first_name, last_name, email, telephone, password, country, state, city, area, street, role } =
         req.body;
     if (
-        !Name ||
+        !first_name ||
+        !last_name ||
+        !country ||
+        !state ||
+        !city ||
+        !area ||
+        !street ||
         !email ||
-        !phone ||
+        !telephone ||
         !password ||
-        !age ||
-        !userId ||
         !role
 
     ) {
-        return next(new ErrorHandler("Please Fill Full Form!", 400));
+        return next(new ApiError("Please Fill Full Form!", 400));
     }
 
-    const isRegistered = await User.findOne({ userId });
+    const isRegistered = await User.findOne({ email });
     if (isRegistered) {
-        return next(new ErrorHandler("Admin With This User ID Already Exists!", 400));
+        return next(new ApiError("Admin With This User ID Already Exists!", 400));
     }
 
     let userRole;
     if (role === "Admin" || role === "SuperAdmin") {
         userRole = role;
     } else {
-        return next(new ErrorHandler("Invalid User Role!", 400));
+        return next(new ApiError("Invalid User Role!", 400));
     }
 
     const admin = await User.create({
-        Name, email, phone, password, age, userId,
+        first_name, last_name, email, telephone, password, country, state, city, area, street,
         role: userRole,
     });
     res.status(200).json({
@@ -99,7 +103,7 @@ exports.getAllAdmins = asyncHandler(async (req, res, next) => {
     const { page = 1, limit = 15, search = "", sort = "", filter = "" } = req.query;
     const query = { $or: [{ role: "Admin" }, { role: "SuperAdmin" }] };
     if (search) {
-        query.Name = { $regex: search, $options: "i" };
+        query.first_name = { $regex: search, $options: "i" };
     }
     if (filter) {
         query.role = { $regex: filter, $options: "i" };;
@@ -107,10 +111,10 @@ exports.getAllAdmins = asyncHandler(async (req, res, next) => {
     let sortOptions = {};
     switch (sort) {
         case "name_asc":
-            sortOptions = { Name: 1 };
+            sortOptions = { first_name: 1 };
             break;
         case "name_desc":
-            sortOptions = { Name: -1 };
+            sortOptions = { first_name: -1 };
             break;
         default:
             break;
