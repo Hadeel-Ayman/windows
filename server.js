@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const corsOptions = {
     origin: 'http://localhost:3000',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
+    // credentials: true,
     optionsSuccessStatus: 204
 };
 
