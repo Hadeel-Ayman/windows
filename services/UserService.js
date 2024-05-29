@@ -136,3 +136,11 @@ exports.getAllAdmins = asyncHandler(async (req, res, next) => {
         admins,
     });
 });
+
+exports.getAdminDetails = asyncHandler(async (req, res, next) => {
+    const users = req.user;
+    res.status(200).json({
+        success: true,
+        users,
+    });
+});
