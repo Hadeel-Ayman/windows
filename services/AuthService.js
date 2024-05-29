@@ -10,7 +10,6 @@ const createJWT = (user, message, statusCode, res) => {
     const token = jwt.sign({ id: user._id }, process.env.SKERET_KEY, {
         expiresIn: process.env.EXPIR_JWT_TIME,
     });
-    const tokenName = user.role === 'Admin' ? 'adminToken' : 'superAdminToken';
     res
         .status(statusCode)
         .header('Authorization', `Bearer ${token}`)
@@ -89,4 +88,27 @@ exports.loginAdmin = asyncHandler(async (req, res, next) => {
     createJWT(user, "Login Successfully!", 201, res);
 
     // res.json("Login Successfully!");
+});
+
+
+
+exports.logout = catchAsyncErrors(async (req, res, next) => {
+    // قراءة التوكن من الـ headers
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+        return next(new ErrorHandler("No valid token found!", 400));
+    }
+
+    // التحقق من نوع التوكن
+    let decoded;
+    try {
+        decoded = jwt.verify(token, process.env.SECRET_KEY);
+    } catch (error) {
+        return next(new ErrorHandler("Invalid or expired token!", 401));
+    }
+    res.status(200).json({
+        success: true,
+        message: "Logged out successfully",
+    });
 });
