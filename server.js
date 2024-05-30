@@ -18,7 +18,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://windows-ux0g.onrender.com',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // السماح بإرسال بيانات الاعتماد
     allowedHeaders: ['Content-Type', 'Authorization'],

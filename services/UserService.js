@@ -147,4 +147,5 @@ exports.getAdminDetails = asyncHandler(async (req, res, next) => {
         success: true,
         users,
     });
+    next();
 });
