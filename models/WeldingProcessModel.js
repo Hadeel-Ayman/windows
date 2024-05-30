@@ -6,7 +6,7 @@ const WeldingProcess = new mongoose.Schema({
         default: 6,
     },
     Welding_time: {
-        type: TimeRanges,
+        type: Number,
         default: '3m', // 3دقيقة 
     },
     profile: {
