@@ -58,19 +58,40 @@ exports.isAdminAuth = expressAsyncHandler(async (req, res, next) => {
 
 exports.isSuperAdminAuthenticated = expressAsyncHandler(async (req, res, next) => {
     const token = req.headers.authorization;
+
     if (!token) {
-        return next(new ApiError("User is not authenticated!", 400));
+        return next(new ApiError("المستخدم غير مصدق عليه!", 400));
     }
+
     try {
+        // فك شفرة التوكن والتحقق منه
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+
+        // استرجاع المستخدم من قاعدة البيانات باستخدام المعرف المستخرج من التوكن
         req.user = await User.findById(decoded.id);
-        if (!req.user || req.user.role !== "SuperAdmin") {
-            return next(
-                new ApiError("Not authorized for this resource!", 403)
-            );
+
+        if (!req.user) {
+            return next(new ApiError("المستخدم غير موجود!", 404));
         }
+
+        // التحقق من دور المستخدم
+        if (req.user.role !== "SuperAdmin") {
+            return next(new ApiError("غير مخول للوصول إلى هذا المورد!", 403));
+        }
+
+        // تسجيل حالة المستخدم كمسؤول رئيسي
+        console.log(`المستخدم ${req.user.username} مصدق عليه كمسؤول رئيسي`);
+
+        // متابعة العملية
         next();
     } catch (error) {
-        return next(new ApiError("Invalid token or user not found!", 401));
+        // التعامل مع الأخطاء المختلفة
+        if (error.name === 'JsonWebTokenError') {
+            return next(new ApiError("توكن غير صالح!", 401));
+        } else if (error.name === 'TokenExpiredError') {
+            return next(new ApiError("توكن منتهي الصلاحية!", 401));
+        } else {
+            return next(new ApiError("حدث خطأ أثناء المصادقة!", 500));
+        }
     }
 });
