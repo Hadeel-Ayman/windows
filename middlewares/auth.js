@@ -55,10 +55,6 @@ exports.isAdminAuth = expressAsyncHandler(async (req, res, next) => {
 });
 
 // isSuperAdminAuthenticated authentication
-const expressAsyncHandler = require("express-async-handler");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User"); // ضبط المسار حسب الحاجة
-const ApiError = require("../utils/ApiError"); // ضبط المسار حسب الحاجة
 
 exports.isSuperAdminAuthenticated = expressAsyncHandler(async (req, res, next) => {
     const authHeader = req.headers.authorization;
