@@ -67,7 +67,7 @@ exports.isSuperAdminAuthenticated = expressAsyncHandler(async (req, res, next) =
 
     try {
         // فك شفرة التوكن والتحقق منه
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const decoded = jwt.verify(token, process.env.SKERET_KEY);
 
         // استرجاع المستخدم من قاعدة البيانات باستخدام المعرف المستخرج من التوكن
         req.user = await User.findById(decoded.id);
