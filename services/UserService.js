@@ -78,7 +78,7 @@ exports.addNewAdmin = asyncHandler(async (req, res, next) => {
 
     const isRegistered = await User.findOne({ email });
     if (isRegistered) {
-        return next(new ApiError("Admin With This User ID Already Exists!", 400));
+        return next(new ApiError("Admin With This email Already Exists!", 400));
     }
 
     let userRole;
