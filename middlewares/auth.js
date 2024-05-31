@@ -55,13 +55,19 @@ exports.isAdminAuth = expressAsyncHandler(async (req, res, next) => {
 });
 
 // isSuperAdminAuthenticated authentication
+const expressAsyncHandler = require("express-async-handler");
+const jwt = require("jsonwebtoken");
+const User = require("../models/User"); // ضبط المسار حسب الحاجة
+const ApiError = require("../utils/ApiError"); // ضبط المسار حسب الحاجة
 
 exports.isSuperAdminAuthenticated = expressAsyncHandler(async (req, res, next) => {
-    const token = req.headers.authorization;
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return next(new ApiError("المستخدم غير مصدق عليه!", 400));
     }
+
+    const token = authHeader.split(' ')[1];
 
     try {
         // فك شفرة التوكن والتحقق منه
