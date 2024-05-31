@@ -101,7 +101,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 
     // التحقق من نوع التوكن
     try {
-        decoded = jwt.verify(token, process.env.SECRET_KEY);
+        decoded = jwt.verify(token, process.env.SKERET_KEY);
     } catch (error) {
         return next(new ApiError("Invalid or expired token!", 401));
     }
