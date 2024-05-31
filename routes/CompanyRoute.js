@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.route('/')
     .post(isSuperAdminAuthenticated, upload.single('image'), createCompanyValidator, PostCompany)
-    .get(auth, GetAllCompany)
+    .get(isSuperAdminAuthenticated, GetAllCompany)
 
 router.route('/:id')
     .get(getCompanyValidator, auth, getOneCompany)

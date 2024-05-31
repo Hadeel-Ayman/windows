@@ -5,7 +5,6 @@ const User = require('../models/UserModel')
 
 // protect handler 
 exports.auth = expressAsyncHandler(async (req, res, next) => {
-    // check if the token is exist or not 
     let token;
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1]
@@ -56,6 +55,7 @@ exports.isAdminAuth = expressAsyncHandler(async (req, res, next) => {
 });
 
 // isSuperAdminAuthenticated authentication
+
 exports.isSuperAdminAuthenticated = expressAsyncHandler(async (req, res, next) => {
     const token = req.headers.authorization;
     if (!token) {
@@ -64,14 +64,13 @@ exports.isSuperAdminAuthenticated = expressAsyncHandler(async (req, res, next) =
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         req.user = await User.findById(decoded.id);
-        if (req.user.role !== "SuperAdmin") {
+        if (!req.user || req.user.role !== "SuperAdmin") {
             return next(
-                new ApiError(`${req.user.role} not authorized for this resource!`, 403)
+                new ApiError("Not authorized for this resource!", 403)
             );
         }
         next();
     } catch (error) {
         return next(new ApiError("Invalid token or user not found!", 401));
     }
-}
-);
+});

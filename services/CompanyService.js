@@ -33,3 +33,6 @@ exports.UpdateCompany = Factory.updateOne(CompanyModel)
 // @access Private 
 
 exports.DeleteCompany = Factory.deleteOne(CompanyModel)
+
+
+
