@@ -75,8 +75,11 @@ exports.createOne = (Model) => asyncHandler(async (req, res, next) => {
         }
 
         const Doc = await Model.create(docData);
-
-        res.status(200).json(Doc);
+        res.status(200).json({
+            success: true,
+            message: "successFullyCreated",
+            Doc,
+        });
     } catch (error) {
         console.error('Error processing request:', error);
         res.status(500).send('Error processing request.');
