@@ -9,7 +9,6 @@ exports.getOpeningSystemValidator = [
 
 exports.createOpeningSystemValidator = [
     check('type')
-        .isArray()
         .notEmpty()
         .withMessage('type is required'),
     check('from')
