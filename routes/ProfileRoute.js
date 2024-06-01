@@ -6,7 +6,7 @@ const router = express.Router({ mergeParams: true })
 
 router.route('/')
     .post(createProfileValidator, isSuperAdminAuthenticated, PostProfile)
-    .get(auth, GetAllProfile)
+    .get(isSuperAdminAuthenticated, GetAllProfile)
 
 router.route('/:id')
     .get(getProfileValidator, auth, getOneProfile)
