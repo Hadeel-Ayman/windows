@@ -66,28 +66,18 @@ exports.isSuperAdminAuthenticated = expressAsyncHandler(async (req, res, next) =
     const token = authHeader.split(' ')[1];
 
     try {
-        // فك شفرة التوكن والتحقق منه
         const decoded = jwt.verify(token, process.env.SKERET_KEY);
-
-        // استرجاع المستخدم من قاعدة البيانات باستخدام المعرف المستخرج من التوكن
         req.user = await User.findById(decoded.id);
 
         if (!req.user) {
             return next(new ApiError("المستخدم غير موجود!", 404));
         }
-
-        // التحقق من دور المستخدم
         if (req.user.role !== "SuperAdmin") {
             return next(new ApiError("غير مخول للوصول إلى هذا المورد!", 403));
         }
-
-        // تسجيل حالة المستخدم كمسؤول رئيسي
         console.log(`المستخدم ${req.user.username} مصدق عليه كمسؤول رئيسي`);
-
-        // متابعة العملية
         next();
     } catch (error) {
-        // التعامل مع الأخطاء المختلفة
         if (error.name === 'JsonWebTokenError') {
             return next(new ApiError("توكن غير صالح!", 401));
         } else if (error.name === 'TokenExpiredError') {

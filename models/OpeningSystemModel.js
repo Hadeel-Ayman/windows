@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const OpeningSystem = new mongoose.Schema({
     type: {
-        type: Array, // multi choice type 
+        type: [String], // multi choice type 
         required: [true, 'type is required']
     },
     image: {
