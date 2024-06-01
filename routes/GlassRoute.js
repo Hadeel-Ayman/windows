@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.route('/')
     .post(createGlassValidator, isSuperAdminAuthenticated, PostGlass)
-    .get(auth, GetAllGlass)
+    .get(isSuperAdminAuthenticated, GetAllGlass)
 
 router.route('/:id')
     .get(getGlassValidator, auth, getOneGlass)

@@ -16,24 +16,25 @@ const Company = new mongoose.Schema({
     size: {
         type: String,
     },
-    material: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Material'
-    },
-    profile: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Profile'
-    }
+    // material: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'Material'
+    // },
+    // profile: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'Profile'
+    // }
 }, { timeStamp: true })
 
 Company.pre(/^find/, function (next) {
     this.populate({ // راجعيها ---------------------------------------
         path: 'material',
         select: '-_id',
-    }).populate({
-        path: 'profile',
-        select: '-_id',
     })
+    // .populate({
+    //     path: 'profile',
+    //     select: '-_id',
+    // })
     next()
 })
 
